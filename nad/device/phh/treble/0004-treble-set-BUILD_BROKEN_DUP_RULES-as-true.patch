@@ -1,0 +1,19 @@
+From 593953a65e1936658e66f6af54df723a754d3983 Mon Sep 17 00:00:00 2001
+From: wulan17 <galihgustip@gmail.com>
+Date: Thu, 22 Oct 2020 15:16:30 +0000
+Subject: [PATCH] treble: set BUILD_BROKEN_DUP_RULES as true
+
+Signed-off-by: wulan17 <galihgustip@gmail.com>
+
+diff --git a/board-base.mk b/board-base.mk
+index 0da1061..a56cd9b 100644
+--- a/board-base.mk
++++ b/board-base.mk
+@@ -4,3 +4,4 @@ TARGET_EXFAT_DRIVER := exfat
+ DEVICE_FRAMEWORK_MANIFEST_FILE := device/phh/treble/framework_manifest.xml
+ 
+ BOARD_ROOT_EXTRA_FOLDERS += bt_firmware sec_storage efs
++BUILD_BROKEN_DUP_RULES := true
+-- 
+2.25.1
+

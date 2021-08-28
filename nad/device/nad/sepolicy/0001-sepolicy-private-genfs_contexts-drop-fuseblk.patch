@@ -1,0 +1,22 @@
+From 2396f209ae9fb30b96e63563ff96148d55ca330e Mon Sep 17 00:00:00 2001
+From: wulan17 <galihgustip@gmail.com>
+Date: Sat, 28 Aug 2021 16:20:16 +0000
+Subject: [PATCH] sepolicy: private: genfs_contexts: drop fuseblk
+
+Signed-off-by: wulan17 <galihgustip@gmail.com>
+
+diff --git a/common/private/genfs_contexts b/common/private/genfs_contexts
+index 70d54e5..ad5ff95 100644
+--- a/common/private/genfs_contexts
++++ b/common/private/genfs_contexts
+@@ -1,7 +1,3 @@
+-ifelse(board_excludes_fuseblk_sepolicy, `true', ,
+-genfscon fuseblk / u:object_r:vfat:s0
+-)
+-
+ # vbswap device for zswap
+ # apply zram context to avoid complicating policies
+ genfscon sysfs /devices/virtual/block/vbswap0     u:object_r:sysfs_zram:s0
+-- 
+2.25.1
+

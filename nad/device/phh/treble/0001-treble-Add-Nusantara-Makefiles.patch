@@ -1,0 +1,59 @@
+From 3411e461ae31855dcc9fe7ba14027c91e18d6e3b Mon Sep 17 00:00:00 2001
+From: wulan17 <galihgustip@gmail.com>
+Date: Thu, 22 Oct 2020 15:04:34 +0000
+Subject: [PATCH] treble: Add Nusantara Makefiles
+
+Signed-off-by: wulan17 <galihgustip@gmail.com>
+
+diff --git a/AndroidProducts.mk b/AndroidProducts.mk
+new file mode 100644
+index 0000000..d888043
+--- /dev/null
++++ b/AndroidProducts.mk
+@@ -0,0 +1,3 @@
++PRODUCT_MAKEFILES := \
++        $(LOCAL_DIR)/nad_a64_bvN.mk \
++        $(LOCAL_DIR)/nad_arm64_bvN.mk \
+diff --git a/nad_a64_bvN.mk b/nad_a64_bvN.mk
+new file mode 100644
+index 0000000..5d0adf9
+--- /dev/null
++++ b/nad_a64_bvN.mk
+@@ -0,0 +1,14 @@
++$(call inherit-product, device/phh/treble/base-pre.mk)
++include build/make/target/product/aosp_arm_ab.mk
++$(call inherit-product, device/phh/treble/base.mk)
++
++# Inherit some common Nusantara stuff.
++$(call inherit-product, vendor/nusantara/config/common_full_phone.mk)
++
++PRODUCT_NAME := nad_a64_bvN
++PRODUCT_DEVICE := phhgsi_a64_ab
++PRODUCT_BRAND := Android
++PRODUCT_MODEL := Phh-Treble vanilla
++
++PRODUCT_PACKAGES += 
++
+diff --git a/nad_arm64_bvN.mk b/nad_arm64_bvN.mk
+new file mode 100644
+index 0000000..0ae29ae
+--- /dev/null
++++ b/nad_arm64_bvN.mk
+@@ -0,0 +1,14 @@
++$(call inherit-product, device/phh/treble/base-pre.mk)
++include build/make/target/product/aosp_arm64_ab.mk
++$(call inherit-product, device/phh/treble/base.mk)
++
++# Inherit some common Nusantara stuff.
++$(call inherit-product, vendor/nusantara/config/common_full_phone.mk)
++
++PRODUCT_NAME := nad_arm64_bvN
++PRODUCT_DEVICE := phhgsi_arm64_ab
++PRODUCT_BRAND := Android
++PRODUCT_MODEL := Phh-Treble vanilla
++
++PRODUCT_PACKAGES += 
++
+-- 
+2.25.1
+
