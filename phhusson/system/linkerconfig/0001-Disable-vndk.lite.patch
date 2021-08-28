@@ -1,0 +1,30 @@
+From 250ccfb8b2fb0dcbfe11bf6f0e38179ddc422cfa Mon Sep 17 00:00:00 2001
+From: Pierre-Hugues Husson <phh@phh.me>
+Date: Sun, 20 Sep 2020 20:53:14 +0200
+Subject: [PATCH] Disable vndk.lite
+
+Change-Id: I129bbee49f6c9b901ca4f5cf55dae2ec36bea107
+
+diff --git a/modules/environment.cc b/modules/environment.cc
+index e63be71..bc2630b 100644
+--- a/modules/environment.cc
++++ b/modules/environment.cc
+@@ -24,13 +24,11 @@ namespace android {
+ namespace linkerconfig {
+ namespace modules {
+ bool IsLegacyDevice() {
+-  return (!Variables::GetValue("ro.vndk.version").has_value() &&
+-          !Variables::GetValue("ro.vndk.lite").has_value()) ||
+-         Variables::GetValue("ro.treble.enabled") == "false";
++  return false;
+ }
+ 
+ bool IsVndkLiteDevice() {
+-  return Variables::GetValue("ro.vndk.lite").value_or("") == "true";
++  return false;
+ }
+ 
+ bool IsVndkInSystemNamespace() {
+-- 
+2.25.1
+

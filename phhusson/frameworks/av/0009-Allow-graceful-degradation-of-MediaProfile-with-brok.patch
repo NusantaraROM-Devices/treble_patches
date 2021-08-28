@@ -1,0 +1,34 @@
+From f9a050d55058e7903dac1fc9ef62f28ae409e94b Mon Sep 17 00:00:00 2001
+From: Alex Zhang <difan@google.com>
+Date: Fri, 17 Apr 2020 16:08:24 -0700
+Subject: [PATCH] Allow graceful degradation of MediaProfile with broken
+ configuration.
+
+Currently, when media profile declares something unsupported / broken,
+MediaProfile will crash. This patch will change the behavior to
+gracefully degradation instead. b/147701370 is an example IRL. If
+vendor declares profile unsupported in AOSP, Treble firmware will crash
+instead of having a non-working or suboptimally working camera.
+
+Test: Compiles
+
+Signed-off-by: Alex Zhang <difan@google.com>
+Change-Id: Icc0f85fe0aac748be4d4f7dd94814f615d528a03
+
+diff --git a/media/libmedia/MediaProfiles.cpp b/media/libmedia/MediaProfiles.cpp
+index 8be961c9fe..af2b3d9411 100644
+--- a/media/libmedia/MediaProfiles.cpp
++++ b/media/libmedia/MediaProfiles.cpp
+@@ -514,8 +514,7 @@ MediaProfiles::startElementHandler(void *userData, const char *name, const char
+         profiles->mCurrentCameraId = getCameraId(atts);
+         profiles->addStartTimeOffset(profiles->mCurrentCameraId, atts);
+     } else if (strcmp("EncoderProfile", name) == 0) {
+-      MediaProfiles::CamcorderProfile* profile = createCamcorderProfile(
+-          profiles->mCurrentCameraId, atts, profiles->mCameraIds);
++      MediaProfiles::CamcorderProfile* profile = createCamcorderProfile(profiles->mCurrentCameraId, atts, profiles->mCameraIds);
+       if (profile != nullptr) {
+         profiles->mCamcorderProfiles.add(profile);
+       }
+-- 
+2.25.1
+

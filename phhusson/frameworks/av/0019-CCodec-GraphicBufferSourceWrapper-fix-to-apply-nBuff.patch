@@ -1,0 +1,28 @@
+From f0517d848183b28b99a0f91c240a7bc4e7e67baa Mon Sep 17 00:00:00 2001
+From: Taehwan Kim <t_h.kim@samsung.com>
+Date: Thu, 26 Nov 2020 22:40:40 +0900
+Subject: [PATCH] CCodec: GraphicBufferSourceWrapper: fix to apply
+ nBufferCountActual for deciding number of inputs
+
+Bug: 169398817
+
+Change-Id: I58cd7da35a3ddc4abdb58df954307acf329c7ee7
+Signed-off-by: Taehwan Kim <t_h.kim@samsung.com>
+(cherry picked from commit 8b3bcddbc98af38d64a1ffefd5932b498f9d4c36)
+
+diff --git a/media/codec2/sfplugin/CCodec.cpp b/media/codec2/sfplugin/CCodec.cpp
+index 56ca819066..14b1dfd7c8 100644
+--- a/media/codec2/sfplugin/CCodec.cpp
++++ b/media/codec2/sfplugin/CCodec.cpp
+@@ -245,7 +245,7 @@ public:
+             return NO_INIT;
+         }
+ 
+-        size_t numSlots = 16;
++        size_t numSlots = 4;
+         constexpr OMX_U32 kPortIndexInput = 0;
+ 
+         OMX_PARAM_PORTDEFINITIONTYPE param;
+-- 
+2.25.1
+

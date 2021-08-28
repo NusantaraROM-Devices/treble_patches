@@ -1,0 +1,22 @@
+From eea306f91276b6cb3ab8ba6e1b5c6c8f725380bc Mon Sep 17 00:00:00 2001
+From: Pierre-Hugues Husson <phh@phh.me>
+Date: Sun, 19 Aug 2018 23:05:26 +0200
+Subject: [PATCH] We might not have a mFlashlight at this state, but that's ok
+
+
+diff --git a/services/camera/libcameraservice/CameraService.cpp b/services/camera/libcameraservice/CameraService.cpp
+index 295964caa8..ac5239dc1d 100644
+--- a/services/camera/libcameraservice/CameraService.cpp
++++ b/services/camera/libcameraservice/CameraService.cpp
+@@ -349,7 +349,7 @@ void CameraService::addStates(const String8 id) {
+                                                                 conflicting, deviceKind));
+     }
+ 
+-    if (mFlashlight->hasFlashUnit(id)) {
++    if (mFlashlight != nullptr && mFlashlight->hasFlashUnit(id)) {
+         Mutex::Autolock al(mTorchStatusMutex);
+         mTorchStatusMap.add(id, TorchModeStatus::AVAILABLE_OFF);
+ 
+-- 
+2.25.1
+

@@ -1,0 +1,29 @@
+From b3de4acc5948254d3b162a643674fbe3257d3a09 Mon Sep 17 00:00:00 2001
+From: wulan17 <galihgustip@gmail.com>
+Date: Sat, 28 Aug 2021 15:03:29 +0000
+Subject: [PATCH] Revert "netd: Don't fail on FTP or PPTP conntrack failure"
+
+This reverts commit 6309f5e4522e3ecf962b61da1197e783a744ef13.
+
+diff --git a/server/TetherController.cpp b/server/TetherController.cpp
+index 1c066a42..2445fb70 100644
+--- a/server/TetherController.cpp
++++ b/server/TetherController.cpp
+@@ -753,14 +753,12 @@ int TetherController::setForwardRules(bool add, const char *intIface, const char
+     }
+ 
+     std::vector<std::string> v4 = {
+-#ifndef IGNORES_FTP_PPTP_CONNTRACK_FAILURE
+             "*raw",
+             StringPrintf("%s %s -p tcp --dport 21 -i %s -j CT --helper ftp", op,
+                          LOCAL_RAW_PREROUTING, intIface),
+             StringPrintf("%s %s -p tcp --dport 1723 -i %s -j CT --helper pptp", op,
+                          LOCAL_RAW_PREROUTING, intIface),
+             "COMMIT",
+-#endif
+             "*filter",
+             StringPrintf("%s %s -i %s -o %s -m state --state ESTABLISHED,RELATED -g %s", op,
+                          LOCAL_FORWARD, extIface, intIface, LOCAL_TETHER_COUNTERS_CHAIN),
+-- 
+2.25.1
+

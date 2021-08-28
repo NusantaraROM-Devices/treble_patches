@@ -1,0 +1,36 @@
+From 7573c0159f9046591a1b375f2a78e3d9c7fd569e Mon Sep 17 00:00:00 2001
+From: Pierre-Hugues Husson <phh@phh.me>
+Date: Fri, 11 Sep 2020 23:42:37 +0200
+Subject: [PATCH] property-matching RROs: allow to prefix the value with + to
+ do glob match instead of exact match
+
+Change-Id: I1f5b7c907523eb6e48d41f5163984564d3db9506
+
+diff --git a/cmds/idmap2/idmap2/Scan.cpp b/cmds/idmap2/idmap2/Scan.cpp
+index 36250450cc7..b93136f7fc3 100644
+--- a/cmds/idmap2/idmap2/Scan.cpp
++++ b/cmds/idmap2/idmap2/Scan.cpp
+@@ -15,6 +15,7 @@
+  */
+ 
+ #include <dirent.h>
++#include <fnmatch.h>
+ 
+ #include <fstream>
+ #include <memory>
+@@ -187,7 +188,11 @@ Result<Unit> Scan(const std::vector<std::string>& args) {
+       // if property set & equal to value, then include overlay - otherwise skip
+       if (android::base::GetProperty(overlay_info->requiredSystemPropertyName, "") !=
+           overlay_info->requiredSystemPropertyValue) {
+-        continue;
++          
++        auto osValue = android::base::GetProperty(overlay_info->requiredSystemPropertyName, "");
++        if(fnmatch(overlay_info->requiredSystemPropertyValue.c_str()+1, osValue.c_str(), 0) != 0) {
++          continue;
++        }
+       }
+     }
+ 
+-- 
+2.25.1
+

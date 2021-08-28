@@ -1,0 +1,23 @@
+From 0ded8324fefb3f7b4f20e32c9b2b323fa612e42a Mon Sep 17 00:00:00 2001
+From: Pierre-Hugues Husson <phh@phh.me>
+Date: Sun, 28 Mar 2021 14:47:52 +0200
+Subject: [PATCH] Reenable STRATEGY_ROUTING. This is a leftover of tries of
+ 587b198, wrongly commited in 20f869
+
+
+diff --git a/services/audiopolicy/enginedefault/src/Engine.cpp b/services/audiopolicy/enginedefault/src/Engine.cpp
+index fbfd60cf75..37f1a9815f 100755
+--- a/services/audiopolicy/enginedefault/src/Engine.cpp
++++ b/services/audiopolicy/enginedefault/src/Engine.cpp
+@@ -52,7 +52,7 @@ static const std::vector<legacy_strategy_map>& getLegacyStrategy() {
+         { "STRATEGY_ENFORCED_AUDIBLE", STRATEGY_ENFORCED_AUDIBLE },
+         { "STRATEGY_TRANSMITTED_THROUGH_SPEAKER", STRATEGY_TRANSMITTED_THROUGH_SPEAKER },
+         { "STRATEGY_ACCESSIBILITY", STRATEGY_ACCESSIBILITY },
+-        //{ "STRATEGY_REROUTING", STRATEGY_REROUTING },
++        { "STRATEGY_REROUTING", STRATEGY_REROUTING },
+         { "STRATEGY_PATCH", STRATEGY_REROUTING }, // boiler to manage stream patch volume
+         { "STRATEGY_CALL_ASSISTANT", STRATEGY_CALL_ASSISTANT },
+     };
+-- 
+2.25.1
+

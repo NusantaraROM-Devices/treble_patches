@@ -1,0 +1,21 @@
+From 70da92592f76e3fc8a91ec00f708cff0560d77fb Mon Sep 17 00:00:00 2001
+From: Pierre-Hugues Husson <phh@phh.me>
+Date: Mon, 19 Apr 2021 21:03:45 +0200
+Subject: [PATCH] Fix build
+
+
+diff --git a/services/core/java/com/android/server/display/DisplayPowerController.java b/services/core/java/com/android/server/display/DisplayPowerController.java
+index 4618fbcef8e..e5f2f74f52b 100644
+--- a/services/core/java/com/android/server/display/DisplayPowerController.java
++++ b/services/core/java/com/android/server/display/DisplayPowerController.java
+@@ -63,6 +63,7 @@ import com.android.server.display.whitebalance.DisplayWhiteBalanceController;
+ import com.android.server.display.whitebalance.DisplayWhiteBalanceFactory;
+ import com.android.server.display.whitebalance.DisplayWhiteBalanceSettings;
+ import com.android.server.lights.LightsManager;
++import com.android.server.lights.LogicalLight;
+ import com.android.server.policy.WindowManagerPolicy;
+ 
+ import java.io.PrintWriter;
+-- 
+2.25.1
+

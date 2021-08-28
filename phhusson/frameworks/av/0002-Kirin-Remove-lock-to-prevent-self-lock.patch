@@ -1,0 +1,33 @@
+From 341f7b460b10aed190a8d15f2d4e72fa351e9481 Mon Sep 17 00:00:00 2001
+From: Pierre-Hugues Husson <phh@phh.me>
+Date: Sun, 19 Aug 2018 22:59:06 +0200
+Subject: [PATCH] ::Kirin:: Remove lock to prevent self-lock
+
+With Huawei Camera HAL, we get the following call order:
+cameraserver CameraService::enumerateProviders (*)
+=> HAL ICameraProvider::getVendorTags
+=> HAL ICameraProviderCallback::cameraDeviceStatusChange
+=> cameraserver CameraService::addState
+=> cameraserver CameraService::updateCameraNumAndIds (*)
+
+The two functions marked with (*) take mServiceLock
+Hence the safe-lock
+
+Change-Id: I464255b5a3af8d75d72b1772ab55aa655f395a60
+
+diff --git a/services/camera/libcameraservice/CameraService.cpp b/services/camera/libcameraservice/CameraService.cpp
+index b6e57f81e1..295964caa8 100644
+--- a/services/camera/libcameraservice/CameraService.cpp
++++ b/services/camera/libcameraservice/CameraService.cpp
+@@ -313,7 +313,7 @@ status_t CameraService::getSystemCameraKind(const String8& cameraId, SystemCamer
+ }
+ 
+ void CameraService::updateCameraNumAndIds() {
+-    Mutex::Autolock l(mServiceLock);
++    //Mutex::Autolock l(mServiceLock);
+     std::pair<int, int> systemAndNonSystemCameras = mCameraProviderManager->getCameraCount();
+     // Excludes hidden secure cameras
+     mNumberOfCameras =
+-- 
+2.25.1
+
