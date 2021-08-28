@@ -1,0 +1,25 @@
+From b889d6fe57d999053fa1e71ea38106da95c24724 Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Sun, 10 Jan 2021 11:44:29 +0000
+Subject: [PATCH] UI: Disable wallpaper zoom
+
+It does little more than inducing motion sickness
+
+Change-Id: I78cc5484930b27f172cd8d8a5bd9042dce3478d0
+
+diff --git a/core/res/res/values/config.xml b/core/res/res/values/config.xml
+index 0f5b0d63e57..e6b24f0f139 100644
+--- a/core/res/res/values/config.xml
++++ b/core/res/res/values/config.xml
+@@ -4406,7 +4406,7 @@
+     <string name="config_customSessionPolicyProvider"></string>
+ 
+     <!-- The max scale for the wallpaper when it's zoomed in -->
+-    <item name="config_wallpaperMaxScale" format="float" type="dimen">1.10</item>
++    <item name="config_wallpaperMaxScale" format="float" type="dimen">1</item>
+ 
+     <!-- Package name that will receive an explicit manifest broadcast for
+          android.os.action.POWER_SAVE_MODE_CHANGED. -->
+-- 
+2.25.1
+

@@ -1,0 +1,55 @@
+From 13439df23dc5264a3a7561623ca8734ac18b49e6 Mon Sep 17 00:00:00 2001
+From: Andy CrossGate Yan <GeForce8800Ultra@gmail.com>
+Date: Mon, 5 Oct 2020 01:51:46 +0000
+Subject: [PATCH] build: Don't handle apns-conf
+
+Leave it to vendor/lineage instead
+
+Change-Id: I51fb1436ee0ee2e33b20ca0810b69e827f3f34dc
+
+diff --git a/target/product/aosp_product.mk b/target/product/aosp_product.mk
+index c904d1686..6140b8407 100644
+--- a/target/product/aosp_product.mk
++++ b/target/product/aosp_product.mk
+@@ -33,11 +33,6 @@ PRODUCT_PACKAGES += \
+     PhotoTable \
+     preinstalled-packages-platform-aosp-product.xml \
+ 
+-# Telephony:
+-#   Provide a APN configuration to GSI product
+-PRODUCT_COPY_FILES += \
+-    device/sample/etc/apns-full-conf.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/apns-conf.xml
+-
+ # NFC:
+ #   Provide a libnfc-nci.conf to GSI product
+ PRODUCT_COPY_FILES += \
+diff --git a/target/product/full_base_telephony.mk b/target/product/full_base_telephony.mk
+index ddb251aaf..a2d3b747c 100644
+--- a/target/product/full_base_telephony.mk
++++ b/target/product/full_base_telephony.mk
+@@ -26,10 +26,5 @@ PRODUCT_PROPERTY_OVERRIDES += \
+ PRODUCT_COPY_FILES := \
+     frameworks/native/data/etc/handheld_core_hardware.xml:$(TARGET_COPY_OUT_VENDOR)/etc/permissions/handheld_core_hardware.xml
+ 
+-ifeq ($(NAD_BUILD),)
+-PRODUCT_COPY_FILES += \
+-    device/sample/etc/apns-full-conf.xml:system/etc/apns-conf.xml
+-endif
+-
+ $(call inherit-product, $(SRC_TARGET_DIR)/product/aosp_base.mk)
+ $(call inherit-product, $(SRC_TARGET_DIR)/product/telephony.mk)
+diff --git a/target/product/mainline.mk b/target/product/mainline.mk
+index 8de475cb4..2996caae9 100644
+--- a/target/product/mainline.mk
++++ b/target/product/mainline.mk
+@@ -34,7 +34,3 @@ PRODUCT_PROPERTY_OVERRIDES += \
+ 
+ PRODUCT_PACKAGES += \
+     PhotoTable \
+-
+-ifeq ($(NAD_BUILD),)
+-PRODUCT_COPY_FILES += device/sample/etc/apns-full-conf.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/apns-conf.xml
+-endif
+-- 
+2.25.1
+
